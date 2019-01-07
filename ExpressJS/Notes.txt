@@ -1,0 +1,9 @@
+const express = require('express'); // Returns a function
+var app = express(); // app Can be pass to the createServer as this is the listener
+app.use((req,res,next)=>{	//Implementation of the middleware
+	next();// Allows to go next
+})
+var server = http.createServer(app);
+
+-sending response from MIDDLEWARE
+use res.send("<h1>HEADER</h1>"); // this will automatically sets the content type also and other header requirements as per the need
