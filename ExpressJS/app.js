@@ -20,4 +20,8 @@ app.use((req,res,next) => {
 
 app.listen(3322,() => {
     console.log("Using port: 3322");
+    console.log("You can visit below paths");
+    console.log("localhost:3322/admin/add-product");
+    console.log("localhost:3322/admin/product : POST");
+    console.log("localhost:3322/ : GET");
 });
