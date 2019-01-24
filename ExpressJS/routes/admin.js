@@ -5,13 +5,16 @@ const rootDir = require("../utils/path");
 // /admin/add-product 
 Router.use('/add-product',(req,res,next) => {
     //res.send("<form action='/admin/product' method='POST'><input type='text' name='Product' id='product'><button type='submit'>Add</button></form>");
-    res.sendFile(path.join(rootDir,'views','add-product.htm'));
+    //res.sendFile(path.join(rootDir,'views','add-product.htm'));
+    res.render('add-product',{docTitle: 'Add Product'});
 });
 
+var products=[];
 // /admin/product
 Router.post('/product',(req,res,next) => {
-    console.log(req.body);
+    products.push({title: req.body.title});
     res.redirect('/');
 });
 
-module.exports = Router;
+exports.routes = Router;
+exports.products = products;
