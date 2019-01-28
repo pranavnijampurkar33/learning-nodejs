@@ -6,7 +6,12 @@ const rootDir = require("../utils/path");
 Router.use('/add-product',(req,res,next) => {
     //res.send("<form action='/admin/product' method='POST'><input type='text' name='Product' id='product'><button type='submit'>Add</button></form>");
     //res.sendFile(path.join(rootDir,'views','add-product.htm'));
-    res.render('add-product',{pageTitle: 'Add Product', path: '/admin/add-product'});
+    res.render('add-product',{
+        pageTitle: 'Add Product', 
+        path: '/admin/add-product',
+        activeAddProduct: true,
+        productCSS: true
+    });
 });
 
 var products=[];

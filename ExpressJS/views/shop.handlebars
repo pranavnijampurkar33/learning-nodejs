@@ -1,0 +1,27 @@
+<main>
+    <h1> Products </h1>
+    {{#if hasProducts}}
+    <p> List of all products</p>
+        {{#each products}}
+        <div class='grid'>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title">{{ this.title}}</h1>
+                </header>
+                <div class="card__image">
+                    <img src="https://knowledgequest.aasl.org/wp-content/uploads/2015/01/books-285x300.png" alt="A book">
+                </div>
+                <div class="card__content">
+                    <h2 class="product__price">₹.100</h2>
+                    <p class="product_description">An interesting books about life</p>
+                </div> 
+                <div class="card__actions">
+                    <button class="btn">Add Product</button> 
+                </div> 
+            </article>
+        </div>
+        {{/each}}
+    {{ else }}
+        <p> No products available</p>
+    {{/if}}
+</main>
