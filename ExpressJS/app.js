@@ -3,9 +3,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-const adminData = require('./routes/admin');
-const shopRouter = require('./routes/shop');
-const exphbs = require('express-handlebars');
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+const errorController = require('./controllers/error');
 
 app.set('view engine','ejs');
 app.set('views','views');
@@ -13,18 +13,10 @@ app.set('views','views');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use('/admin',adminData.routes);
-app.use(shopRouter);
+app.use('/admin',adminRoutes);
+app.use(shopRoutes);
 
-app.use((req,res,next) => {
-    //var error404 = path.join(__dirname,'views','404.htm');
-    //console.log(error404);
-    //res.status(404).sendFile(error404);
-    res.status(404).render('404',{
-        pageTitle: '404 page not found',
-        error404CSS: true
-    });
-});
+app.use(errorController.error404);
 
 app.listen(3322,() => {
     console.log("Using port: 3322");
