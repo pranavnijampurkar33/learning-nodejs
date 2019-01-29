@@ -10,21 +10,19 @@ exports.getAddProduct = (req,res,next) => {
 }
 exports.postAddProduct = (req,res,next) => {
     var product = new Product(req.body.title);
-    //products.push({title: req.body.title});
     product.save();
     res.redirect('/');
 }
 exports.getProducts = (req,res,next) => {
-    var products = Product.fetchAll();
-    console.log('shop.js',products);
-    products = products;
-    res.render('shop',{ 
-        pageTitle:'Home',
-        products: products, 
-        docTitle: 'Book Shop', 
-        path: '/', 
-        hasProducts: products.length > 0,
-        activeShop: true
+    Product.fetchAll(products => {
+        res.render('shop',{ 
+            pageTitle:'Home',
+            products: products, 
+            docTitle: 'Book Shop', 
+            path: '/', 
+            hasProducts: products.length > 0 ,
+            activeShop: true
+        });
     });
 }
 exports.errorProduct = (req,res,next) => {
