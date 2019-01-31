@@ -7,15 +7,23 @@
     margin: 1rem 0;
 }
 .form-control label,
-.form-control input {
+.form-control input, 
+.form-control textarea {
     display: block;
+    width: 100%;
+    margin-bottom: 0.25rem;
 }
-.form-control input {
-    border: 1px solid brown;
+.form-control input,
+.form-control textarea {
+    border: 1px solid rgb(179, 174, 174);
     font: inherit;
     border-radius: 2px;
 }
-button {
+.form-control input:focus,
+.form-control textarea:focus {
+    outline-color: brown
+}
+.btn {
     font: inherit;
     border: 1px solid brown;
     color: brown;
@@ -23,8 +31,8 @@ button {
     border-radius: 3px;
     cursor: pointer;
 }
-button:hover,
-button:active {
+.btn:hover,
+.btn:active {
     background-color: brown;
     color: white;
 }
