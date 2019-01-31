@@ -10,6 +10,14 @@ exports.getProducts = (req,res,next) => {
         });
     });
 }
+exports.getProduct = (req,res,next) => {
+    const prodId = req.params.productId; //We can access productId bcoz we have mentioned 
+    //this param in the routes/shop.js after the  colon -> Router.get('/products/:productId');
+    Product.findById(prodId, product => {
+        console.log(product);
+    });                 
+    res.redirect('/');                   
+}
 exports.errorProduct = (req,res,next) => {
     res.status(404).render('404',{
         pageTitle: '404 page not found',
