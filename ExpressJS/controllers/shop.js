@@ -14,9 +14,13 @@ exports.getProduct = (req,res,next) => {
     const prodId = req.params.productId; //We can access productId bcoz we have mentioned 
     //this param in the routes/shop.js after the  colon -> Router.get('/products/:productId');
     Product.findById(prodId, product => {
-        console.log(product);
-    });                 
-    res.redirect('/');                   
+        //console.log(product);
+        res.render('shop/product-detail',{
+            product: product,
+            path:'/products',
+            pageTitle: product.title
+        });   
+    });                           
 }
 exports.errorProduct = (req,res,next) => {
     res.status(404).render('404',{
@@ -41,13 +45,22 @@ exports.getCart = (req,res,next) => {
             pageTitle:'Your Cart',
             path: '/cart'
         });
+    }); 
+}
+
+exports.postCart = (req,res,next) => {
+    const prodId = req.body.productId;
+    console.log(prodId);
+    res.render('shop/cart',{ 
+        pageTitle:'Your Cart',
+        path: '/cart'
     });
 }
 
 exports.getOrders = (req,res,next) => {
     Product.fetchAll(products => {
         res.render('shop/orders',{ 
-            pageTitle:'Your Cart',
+            pageTitle:'Your Orders',
             path: '/orders'
         });
     });
