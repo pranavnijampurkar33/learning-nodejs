@@ -18,8 +18,8 @@ app.use(shopRoutes);
 
 app.use(errorController.error404);
 
-app.listen(3322,() => {
-    console.log("Using port: 3322");
+var listener = app.listen(3322,() => {
+    console.log("Using port: "+listener.address().port);
     console.log("You can visit below paths");
     console.log("localhost:3322/admin/add-product");
     console.log("localhost:3322/admin/product : POST");

@@ -6,7 +6,7 @@ const adminController = require('../controllers/admin');
 Router.get('/add-product',adminController.getAddProduct);
 
 // /admin/edit-product GET
-Router.get('/edit-product',adminController.getEditProduct);
+Router.get('/edit-product/:productId',adminController.getEditProduct);
 
 // /admin/products GET 
 Router.get('/products',adminController.getProducts);

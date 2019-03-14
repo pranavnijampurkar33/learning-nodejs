@@ -32,7 +32,7 @@ module.exports = class Cart {
                 //console.log(updatedProduct);
                 cart.products = [...cart.products, updatedProduct];
             }
-            cart.totalPrice = cart.totalPrice + productPrice; 
+            cart.totalPrice = cart.totalPrice + +productPrice; 
             fs.writeFile(p, JSON.stringify(cart), err => {
                 console.log(err);
             })           

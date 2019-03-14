@@ -53,7 +53,6 @@ exports.postCart = (req,res,next) => {
     Product.findById(prodId, product => {
         Cart.addProduct(prodId,product.price);
     });
-    console.log(Cart.products);
     res.render('shop/cart',{ 
         pageTitle:'Your Cart',
         path: '/cart'
