@@ -40,12 +40,24 @@ exports.getIndex = (req,res,next) => {
 }
 
 exports.getCart = (req,res,next) => {
-    Product.fetchAll(products => {
-        res.render('shop/cart',{ 
-            pageTitle:'Your Cart',
-            path: '/cart'
-        });
-    }); 
+    Cart.getCart(cart => {
+        Product.fetchAll(products => {     
+            const cartProducts = [];       
+            for(product of products){       
+                const cartProductData = cart.products.find(prod => prod.id === product.id);
+                console.log(cartProductData);
+                if(cartProductData){
+                    cartProducts.push({productData: product, qty: cartProductData.qty});
+                    console.log("test cartProducts.push")
+                }
+            }
+            res.render('shop/cart',{ 
+                pageTitle:'Your Cart',
+                path: '/cart',
+                products: cartProducts
+            });
+        }); 
+    })    
 }
 
 exports.postCart = (req,res,next) => {
@@ -53,10 +65,16 @@ exports.postCart = (req,res,next) => {
     Product.findById(prodId, product => {
         Cart.addProduct(prodId,product.price);
     });
-    res.render('shop/cart',{ 
-        pageTitle:'Your Cart',
-        path: '/cart'
-    });
+    res.redirect('/cart');
+}
+
+exports.postCartdeleteProduct = (req,res,next) =>{
+    const prodId = req.body.productId;
+    console.log('controller shop -> deleteCartItem ',prodId);
+    Product.findById(prodId,product => {
+        Cart.deleteProduct(prodId,product.price);
+    });    
+    res.redirect('/cart');
 }
 
 exports.getOrders = (req,res,next) => {

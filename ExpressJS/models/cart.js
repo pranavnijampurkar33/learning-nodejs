@@ -48,6 +48,9 @@ module.exports = class Cart {
             const cart = JSON.parse(fileContent)
             const updatedCart = { ...cart };
             const product = updatedCart.products.find( prod => prod.id === id  );
+            if(!product){
+                return;
+            }
             const productQty = product.qty;
             updatedCart.products = updatedCart.products.filter(prod => prod.id !== id);
             console.log('updatedCart.totalPrice',updatedCart.totalPrice);
@@ -57,6 +60,18 @@ module.exports = class Cart {
                 console.log('Deleted successfully');
                 console.log(err);
             });
+        });
+    }
+    static getCart(cb){
+        fs.readFile (p,(err, fileContent) => {
+            const cart = JSON.parse(fileContent);
+            if(err){
+                cb(null);
+            }
+            else{
+                console.log("moderl->cart.js->getCart()");
+                cb(cart);
+            }
         });
     }
 }

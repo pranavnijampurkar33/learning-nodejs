@@ -51,9 +51,7 @@ module.exports = class Product {
                 if(!err){
                     Cart.deleteProduct(id , product.price); 
                 }
-            }
-
-            )
+            });
         });
     }
     static fetchAll(cb) {
