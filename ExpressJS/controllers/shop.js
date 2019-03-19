@@ -2,25 +2,32 @@ const Product = require('../models/product')
 const Cart = require('../models/cart')
 
 exports.getProducts = (req,res,next) => {
-    Product.fetchAll(products => {
-        res.render('shop/product-list',{ 
-            pageTitle:'Home',
-            products: products, 
-            path: '/products'
-        });
-    });
+    Product.fetchAll()
+        .then(([rows, fieldData]) => {
+            res.render('shop/product-list',{ 
+                pageTitle:'Products',
+                products: rows,
+                path: '/products'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });   
 }
 exports.getProduct = (req,res,next) => {
     const prodId = req.params.productId; //We can access productId bcoz we have mentioned 
     //this param in the routes/shop.js after the  colon -> Router.get('/products/:productId');
-    Product.findById(prodId, product => {
-        //console.log(product);
+    Product.findById(prodId)
+    .then(([product]) => {
         res.render('shop/product-detail',{
-            product: product,
+            product: product[0],
             path:'/products',
-            pageTitle: product.title
-        });   
-    });                           
+            pageTitle: product[0].title
+        });  
+    }).catch(err => {
+        console.log(err);
+    });
+                             
 }
 exports.errorProduct = (req,res,next) => {
     res.status(404).render('404',{
@@ -30,13 +37,17 @@ exports.errorProduct = (req,res,next) => {
 }
 
 exports.getIndex = (req,res,next) => {
-    Product.fetchAll(products => {
-        res.render('shop/index',{ 
-            pageTitle:'Home',
-            products: products,
-            path: '/'
-        });
-    });
+    Product.fetchAll()
+        .then(([rows, fieldData]) => {
+            res.render('shop/index',{ 
+                pageTitle:'Home',
+                products: rows,
+                path: '/'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });    
 }
 
 exports.getCart = (req,res,next) => {
